@@ -20,7 +20,7 @@ export default function StreamingPage() {
 
     const res = await fetch("/streaming/api", {
       method: "POST",
-      body: JSON.stringify({ prompt: "chocolate brownies" }),
+      body: JSON.stringify({ prompt: prompt }),
     });
 
     const reader = res.body?.getReader();

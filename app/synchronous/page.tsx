@@ -20,7 +20,7 @@ export default function SyncPage() {
 
     const data = await fetch("/synchronous/api", {
       method: "POST",
-      body: JSON.stringify({ prompt: "chocolate brownies" }),
+      body: JSON.stringify({ prompt: prompt }),
     });
 
     setIsLoading(false);
