@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     required: ["name", "ingredients", "steps"]
   };
 
-  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY as string);
+  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY as string);
 
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest", generationConfig: {
       responseSchema: recipeResponseSchema, responseMimeType: "application/json",
