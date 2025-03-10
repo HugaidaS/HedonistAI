@@ -3,6 +3,7 @@ import { z } from "zod";
 import Markdown from "react-markdown";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import Image from "next/image";
 
 export function RecipeCard({ recipe }: { recipe?: z.infer<typeof RecipeSchema> }) {
   if (!recipe) return null;
