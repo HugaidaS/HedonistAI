@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       structuredOutputs: true,
     }),
     schema: RecipeSchema,
-    prompt: `Recipe for ${prompt || "chocolate brownies"} with image from the google, be polite and respectful`,
+    prompt: `Recipe for ${prompt || "chocolate brownies"}`,
   });
 
   return NextResponse.json(object);

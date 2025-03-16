@@ -4,6 +4,7 @@
 import { NextResponse } from "next/server";
 import {GoogleGenerativeAI} from "@google/generative-ai";
 import { SchemaType } from "@google/generative-ai";
+import {RecipeSchemaGemini} from "@/src/recipeSchema";
 
 const modelName = "gpt-4o-2024-08-06";
 
@@ -23,47 +24,10 @@ export async function POST(req: Request) {
   //   stream: true,
   // })
 
-  const recipeResponseSchema = {
-    type:  "object" as SchemaType.OBJECT,
-    properties: {
-      name: {
-        type: 'string' as SchemaType.STRING,
-        description: "Name of the recipe"
-      },
-      ingredients: {
-        type: 'array' as SchemaType.ARRAY,
-        description: "List of ingredients",
-        items: {
-          type: 'object' as SchemaType.OBJECT,
-          properties: {
-            quantity: {
-              type: 'string' as SchemaType.STRING,
-              description: "Quantity of the ingredient"
-            },
-            ingredient: {
-              type: 'string' as SchemaType.STRING,
-              description: "Ingredient name"
-            }
-          },
-          required: ["quantity", "ingredient"]
-        }
-      },
-      steps: {
-        type: 'array' as SchemaType.ARRAY,
-        description: "Steps of the recipe",
-        items: {
-          type: 'string' as SchemaType.STRING,
-          description: "markdown content to describe the recipe step"
-        }
-      }
-    },
-    required: ["name", "ingredients", "steps"]
-  };
-
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY as string);
 
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest", generationConfig: {
-    responseSchema: recipeResponseSchema, responseMimeType: "application/json",
+    responseSchema: RecipeSchemaGemini, responseMimeType: "application/json",
     }});
   const response = await model.generateContentStream(prompt);
 
